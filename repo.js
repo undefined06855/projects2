@@ -10,10 +10,9 @@ const style =
 `
 #repo_[[ID]] {
     rotate: [[RAND]]deg;
-    background-color: rgb(202, 202, 202)
 }
 
-#repo_[[ID]]:hover, .repo_[[ID]]:focus {
+#repo_[[ID]]:hover, #repo_[[ID]]:focus {
     rotate: [[RAND2]]deg !important;
     z-index: 100;
 }
@@ -21,7 +20,6 @@ const style =
 @media (prefers-reduced-motion) {
     #repo_[[ID]] {
         rotate: 0deg;
-        background-color: rgb(202, 202, 202)
     }
     
     #repo_[[ID]]:hover, #repo_[[ID]]:focus {

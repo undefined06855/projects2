@@ -137,38 +137,6 @@ req.onreadystatechange = () => {
 req.open("get", "https://api.github.com/users/undefined06855/repos")
 req.send()
 
-window.addEventListener("resize", () => {
-    if (document.body.offsetWidth < 500)
-    {
-        document.getElementById("repo_wrapper").classList.remove("row")
-        document.getElementById("repo_wrapper").classList.add   ("column")
-    }
-    else
-    {
-        document.getElementById("repo_wrapper").classList.add   ("row")
-        document.getElementById("repo_wrapper").classList.remove("column")
-    }
-})
-
-if (document.body.offsetWidth < 500)
-{
-    document.getElementById("repo_wrapper").classList.remove("row")
-    document.getElementById("repo_wrapper").classList.add   ("column")
-}
-else
-{
-    document.getElementById("repo_wrapper").classList.add   ("row")
-    document.getElementById("repo_wrapper").classList.remove("column")
-}
-
-document.getElementById("corner_image").addEventListener("click", () => 
-    window.location.href = "https://github.com/undefined06855"
-)
-
-document.getElementById("corner_click").addEventListener("click", () => 
-    window.location.href = "https://github.com/undefined06855"
-)
-
 setTimeout(() => {
     console.log("checking if wifi bad... %s", document.getElementById("repo_wrapper").children.length === 0 ? "yeah..." : "nope!" )
     if (document.getElementById("repo_wrapper").children.length === 0)
@@ -178,3 +146,8 @@ setTimeout(() => {
         document.getElementById("repo_wrapper").innerHTML = "There was an unknown error when trying to load my projects.<br/>In the meantime, try my Github instead.<a href=\"https://www.github.com/undefined06855\">Github</a>"
     }
 }, 5000)
+
+document.getElementById("wrapper").addEventListener("mousewheel", event => {
+    console.log("scrlol")
+    document.getElementById("wrapper").scrollLeft -= event.wheelDelta
+})
