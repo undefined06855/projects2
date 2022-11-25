@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+
+<html dir="ltr" lang="en">
+    <head>
+        <title>My projects... I guess?</title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                font-family: "Courier New", Courier, monospace;
+
+                user-select: none;
+
+                --width: 6;
+            }
+
+            html, body, #wrapper {
+                width: 100vw;
+                height: 100vh;
+
+                max-width: 100vw;
+                max-height: 100vh;
+            }
+
+            #repo_wrapper {
+                flex-wrap: wrap;
+                max-width: 100%;
+                justify-content: center;
+            }
+
+            #repo_wrapper > * {
+                width: 200px;
+                height: 100px;
+                box-sizing: border-box;
+
+                border: 2px solid rgb(0, 0, 0);
+                border-radius: 5px;
+                padding: 10px;
+
+                margin: 20px 10px;
+
+                transition: scale .2s ease, rotate .2s ease;
+
+                overflow: hidden;
+
+                cursor: pointer;
+            }
+
+            #repo_wrapper > *:hover {
+                scale: 1.2;
+            }
+
+            .row {
+                display: flex;
+                flex-direction: row;
+            }
+
+            .column {
+                display: flex;
+                flex-direction: column;
+
+                width: 100%;
+            }
+
+            .column > * {
+                width: unset !important;
+            }
+
+            #wrapper {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                flex-direction: column;
+
+                text-align: center;
+
+                overflow-x: hidden;
+                overflow-y: scroll;
+
+                background-color: rgb(202, 202, 202);
+            }
+
+            h1 {
+                margin-top: 20px;
+            }
+
+            #corner_image, #corner_click, #corner_label {
+                position: fixed;
+                z-index: 200;
+                cursor: pointer;
+            }
+
+            #corner_image {
+                bottom: -8px;
+                left: -8px;
+
+                background-image: url("GitHub-Mark-Light-64px.png");
+                width: 64px;
+                height: 64px;
+
+                scale: 0.6;
+            }
+
+            #corner_click {
+                bottom: -50px;
+                left: -360px;
+
+                width: 800px;
+                height: 80px;
+                
+                background-color: rgb(8, 60, 138);
+
+                rotate: 45deg;
+            }
+
+            #corner_label {
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity .25s linear .5s;
+            }
+
+            #corner_click:hover ~ #corner_label, #corner_image:hover ~ #corner_label {
+                opacity: 1;
+                bottom: 50px;
+                left: 50px;
+
+                background-color: rgba(0, 0, 0, 0.75);
+                color: rgb(245, 245, 245);
+
+                padding: 10px;
+                border-radius: 5px;
+            }
+
+            #overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+
+                width: 100vw;
+                height: 100vh;
+
+                box-sizing: border-box;
+
+                background-color: rgba(0, 0, 0, 0.75);
+
+                color: rgb(245, 245, 245);
+
+                padding: 60px;
+
+                z-index: 300;
+
+                transition: opacity .5s linear
+            }
+
+            #reponame {
+                font-size: 60px;
+            }
+
+            #repodesc {
+                font-size: 30px;
+            }
+
+            #repogit, #repopage {
+                font-size: 15px;
+            }
+
+            #overlay > * {
+                transition: all 1s cubic-bezier(0, 0, 0.2, 1.30);
+                max-width: 100%;
+                word-wrap: break-word;
+                margin-bottom: 15px;
+            }
+
+            #lower {
+                position: fixed;
+                bottom: 60px;
+                left: 60px;
+            }
+
+            #lower2 {
+                position: fixed;
+                bottom: 60px;
+                right: -100px;
+
+                width: 500px;
+
+                display: flex;
+                flex-direction: column;
+            }
+
+            #lower2 > * {
+                text-align: left;
+                font-size: 30px;
+                max-width: 100%;
+
+                padding: 50px 20px;
+
+                border: 2px solid rgb(245, 245, 245);
+                border-radius: 5px;
+
+                color: rgb(255, 255, 255);
+                text-decoration: none;
+
+                transition: inherit;
+            }
+
+            #lower2 > *:hover {
+                translate: -10%;
+            }
+
+            #exit {
+                position: fixed;
+                top: 20px;
+                left: 20px;
+            }
+
+            #exit::after {
+                content: "< exit";
+                font-size: 25px;
+            }
+
+            a {
+                font-size: 20px
+            }
+
+            .tall {
+                height: 60px;
+            }
+
+            @media screen and (max-width: 500px) {
+                #reponame {
+                    font-size: 25px;
+                }
+
+                #repodesc {
+                    font-size: 20px;
+                }
+
+                a {
+                    font-size: 5px  
+                }
+
+                #lower2 {
+                    width: 100vw;
+                }
+
+                #lower2 > * {
+                    font-size: 25px;
+                    left: 0;
+                    right: 0;
+                }
+
+                #lower {
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="wrapper">
+            <h1>My projects</h1>
+            <h5>Most of these aren't very good, and are just tests...</h5>
+            <div id="repo_wrapper" class="row">Loading...</div>
+        </div>
+        
+        <div id="corner_click"></div>
+        <div id="corner_image" tabindex="0"></div>
+        <div id="corner_label">My Github</div>
+
+        <div id="overlay" style="display: none; opacity: 0;">
+            <div id="reponame" style="translate: -150%;">[[NAME]]</div>
+            <div id="repodesc" style="translate: -150%;">[[DESC]]</div>
+            <div id="repotime" style="translate: -150%;">[[LAST_UPDATED]]</div>
+
+            <div class="tall"></div>
+
+            <div id="lower2" style="translate: 150%;">
+                <a id="repogit" href="">View source</a><br/>
+                <a id="repopage" href="">View Page</a>
+            </div>
+
+            <div id="lower" style="translate: -150%;">
+                ID: <span id="repoid">[[ID]]</span>
+                <br/>
+                Created at: <span id="repocreate">[[CREATE_TIME]]</span>
+            </div>
+
+            <div id="exit" onclick="closeDetailedRepoView({key: 'Escape'})"></div>
+        </div>
+
+        <script src="repo.js"></script>
+        <script src="main.js"></script>
+    </body>
+</html>
